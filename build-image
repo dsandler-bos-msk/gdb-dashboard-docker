@@ -21,4 +21,6 @@ then
   print_usage_and_exit
 fi
 
+git submodule update --init
+
 DOCKER_BUILDKIT=1 docker build -t $TARGET_TAG --network=host --build-arg from=$BASE_IMAGE .
