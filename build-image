@@ -1,0 +1,24 @@
+#!/bin/bash
+
+BASE_IMAGE=$1
+TARGET_TAG=$2
+
+print_usage_and_exit()
+{
+  echo "Usage: $0 base-image target-tag"
+  exit $1
+}
+
+if [ -z $BASE_IMAGE ]
+then
+  echo "Error: Missing base-image"
+  print_usage_and_exit
+fi
+
+if [ -z $TARGET_TAG ]
+then
+  echo "Error: Missing target-tag"
+  print_usage_and_exit
+fi
+
+DOCKER_BUILDKIT=1 docker build -t $TARGET_TAG --network=host --build-arg from=$BASE_IMAGE .
